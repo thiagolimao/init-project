@@ -16,7 +16,6 @@ Install Node.js if you do not already have it installed on your machine.
 Install Gulp CLI. Run the below command in your terminal. This will install Gulp CLI globally.
 
 ```
-	# Setup
     yarn add gulp-cli
 ```
 
