@@ -41,7 +41,6 @@ const credits =[
 function cleanDist() {
     return gulp.src(distDir, {"allowEmpty": true, read: false})
     .pipe(clean());
-    // return findRemoveSync(distDir, { dir: '*', regex: true }); 
 }
 
 // Task: Copy Files
