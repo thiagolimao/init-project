@@ -39,7 +39,7 @@ const credits =[
 
 // Clean up the dist folder before running any task
 function cleanDist() {
-    return gulp.src(distDir, {"allowEmpty": false, read: false})
+    return gulp.src(distDir, {"allowEmpty": true, read: false})
     .pipe(clean());
     // return findRemoveSync(distDir, { dir: '*', regex: true }); 
 }
