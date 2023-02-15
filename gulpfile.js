@@ -1,20 +1,23 @@
 "use strict";
 
 // Load Plugins
-const autoprefixer = require('gulp-autoprefixer');
-const beautify = require('gulp-beautify');
-const browserSync = require("browser-sync").create();
 const gulp = require('gulp');
+
+const clean = require('gulp-clean');
+const browserSync = require("browser-sync").create();
 const mergeStream = require('merge-stream');
 const nunjucks = require('gulp-nunjucks');
-const sass = require('gulp-sass')(require('sass'));
+const beautify = require('gulp-beautify');
 const inject = require('gulp-inject-string');
+const webp = require('gulp-webp');
+const replace = require('gulp-replace');
+const sass = require('gulp-sass')(require('sass'));
+const autoprefixer = require('gulp-autoprefixer');
 const os = require('os');
 const cleanCSS = require('gulp-clean-css');
 const minify = require("gulp-minify");
 const rename = require('gulp-rename');
 const surge = require('gulp-surge');
-const clean = require('gulp-clean');
 
 const pkg = require('./package.json');
 const dependencies = require('./dependencies.json');
@@ -76,6 +79,20 @@ function compileHTML() {
         .pipe(inject.replace('</head>', '  <!-- =======================================================\r\n  ' + credits.join("\r\n  ") + '\r\n  ======================================================== -->\r\n</head>'))
         .pipe(gulp.dest(distDir))
         .pipe(browserSync.stream());
+}
+
+// Task: Converter imagens PNG e JPG em WebP
+function convertWEBP() {
+    return gulp.src('./src/img/**/*.{png,jpg}')
+    .pipe(webp())
+    .pipe(gulp.dest(distDir + 'assets/img'));
+}
+
+// Task: Atualizar as referências das imagens no HTML para usar o WebP
+function updateHTML() {
+    return gulp.src('**/*.html')
+      .pipe(replace(/\.(png|jpg)/g, '.webp'))
+      .pipe(gulp.dest(distDir))
 }
 
 // Task: Compile SCSS
@@ -158,6 +175,7 @@ function initBrowserSync(done) {
 function watchFiles() {
     gulp.watch(['./src/assets/**/*', '!./src/assets/js/main.js'], copyFiles);
 
+    gulp.watch('./src/img/**/*', convertWEBP, updateHTML);
     gulp.watch('./src/scss/**/*', compileSCSS);
     gulp.watch('./src/**/*.html', compileHTML);
     gulp.watch('./src/assets/js/main.js', compileJS);
@@ -167,7 +185,13 @@ function watchFiles() {
 }
 
 // Export tasks
-const dist = gulp.series(cleanDist, [copyFiles, compileHTML, compileSCSS, compileJS], [minifyCSS, minifyJS], copyDependencies);
+const dist = gulp.series(
+    cleanDist, 
+    [convertWEBP, updateHTML], 
+    [copyFiles, compileHTML, compileSCSS, compileJS], 
+    [minifyCSS, minifyJS], 
+    copyDependencies
+);
 
 exports.watch = gulp.series(dist, watchFiles);
 exports.start = gulp.series(dist, gulp.parallel(watchFiles, initBrowserSync));
