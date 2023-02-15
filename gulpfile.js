@@ -83,7 +83,7 @@ function compileHTML() {
 
 // Task: Converter imagens PNG e JPG em WebP
 function convertWEBP() {
-    return gulp.src('./src/img/**/*.{png,jpg}')
+    return gulp.src('./src/img/**/*.{png,jpg,jpeg}')
     .pipe(webp())
     .pipe(gulp.dest(distDir + 'assets/img'));
 }
@@ -91,7 +91,7 @@ function convertWEBP() {
 // Task: Atualizar as referências das imagens no HTML para usar o WebP
 function updateHTML() {
     return gulp.src('**/*.html')
-      .pipe(replace(/\.(png|jpg)/g, '.webp'))
+      .pipe(replace(/\.(png|jpg|jpeg)/g, '.webp'))
       .pipe(gulp.dest(distDir))
 }
 
