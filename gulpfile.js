@@ -40,6 +40,10 @@ const credits =[
     '* License: ' + pkg.license
 ]; 
 
+var paths = {
+    images: './src/assets/img/**/*.{png,jpg,jpeg}',
+};
+
 // Clean up the dist folder before running any task
 function cleanDist() {
     return gulp.src(distDir, {"allowEmpty": true, read: false})
@@ -82,17 +86,18 @@ function compileHTML() {
 }
 
 // Task: Converter imagens PNG e JPG em WebP
-function convertWEBP() {
-    return gulp.src('./src/img/**/*.{png,jpg,jpeg}')
-    .pipe(webp())
-    .pipe(gulp.dest(distDir + 'assets/img'));
+const convertWEBP = () => {
+    return gulp.src(paths.images)
+        .pipe(webp())
+        .pipe(replace('.webp'))
+        .pipe(gulp.dest(distDir + 'assets/img'))
 }
 
 // Task: Atualizar as referências das imagens no HTML para usar o WebP
 function updateHTML() {
     return gulp.src('**/*.html')
-      .pipe(replace(/\.(png|jpg|jpeg)/g, '.webp'))
-      .pipe(gulp.dest(distDir))
+        .pipe(replace(/\.(png|jpg|jpeg)/g, '.webp'))
+        .pipe(gulp.dest(distDir))
 }
 
 // Task: Compile SCSS
@@ -175,9 +180,9 @@ function initBrowserSync(done) {
 function watchFiles() {
     gulp.watch(['./src/assets/**/*', '!./src/assets/js/main.js'], copyFiles);
 
-    gulp.watch('./src/img/**/*', convertWEBP, updateHTML);
+    gulp.watch('./src/img/**/*', convertWEBP);
     gulp.watch('./src/scss/**/*', compileSCSS);
-    gulp.watch('./src/**/*.html', compileHTML);
+    gulp.watch('./src/**/*.html', compileHTML, updateHTML);
     gulp.watch('./src/assets/js/main.js', compileJS);
 
     gulp.watch(distDir + 'assets/js/main.js', minifyJS);
