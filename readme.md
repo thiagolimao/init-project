@@ -44,3 +44,9 @@ It will watch and automatically compile the project to the /dist folder each tim
 ```
 	yarn run watch
 ```
+
+Publish /dist in surge url
+
+```
+	yarn deploy
+```
