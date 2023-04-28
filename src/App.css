@@ -1,0 +1,192 @@
+
+body{
+    background-color: #1c1c1c;
+    font-family: 'Montserrat',sans-serif;
+    color: #fff;
+}
+.github{
+    display: flex;
+    column-gap: 20px;
+}
+
+/*  Profile */
+.avatar{
+    height: 150px;
+    width: 150px;
+    margin: 0 auto;
+    background-size: cover;
+    border: solid 5px #FF8F80;
+    border-radius: 100%;
+    
+}
+.profile{
+    background-color: #424242;
+    padding: 2rem;
+    border: solid 2px #FF8F80;
+    text-align: center;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 360px;
+}
+/* Repositories */
+.repositories{
+    flex: 1;
+}
+
+/* Filter */
+.repositories > .filter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.repositories > .filter > h2 {
+    margin: 0;
+}
+.FilterInputs{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Inputs */
+.formSelect{
+    width: 220px;
+}
+#labelFiltro-select{
+    font-family: 'Montserrat',sans-serif;
+    padding: 15px;
+}
+.formBusca{
+    border: solid 1px #ff8f8079;
+    height: 48px;
+    background-color: transparent !important;
+}
+.inputBusca > input[type='text']{
+    font-family: 'Montserrat',sans-serif;
+    color: #fff;
+}
+.dividerBusca {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+.IconBusca > path {
+    fill: #ff8f8079;
+}
+/* Sobreesvrevendo CSS material UI */
+.formSelect> div > div{
+    border: solid 0.1px #ff8f8079;
+    transition: all .2s;
+    color: #fff;
+}
+.InputSearch > div > fieldset.Mui-focused{
+    border-color: #ff8f8079;
+}
+.Mui-focused .MuiOutlinedInput-notchedOutline{
+    border-width: 1px !important;
+    border-color:#ff8f8079 !important;
+    color: #fff !important; 
+}
+.InputSearch > div:hover{
+    max-height: 56px;
+    border: solid 0.1px #ff8f80b6;
+    transition: all .2s;  
+}
+.InputSearch > label{
+    font-size: 14px;
+    font-family: 'Montserrat',sans-serif;
+    color: #fff;
+}
+#labelFiltro{
+    font-family: 'Montserrat',sans-serif;
+    color: #ff8f80b6;
+    background: #1c1c1c;
+}
+.formSelect > div > div > svg{
+    color: #FF8F80;
+}
+#menu- > div{
+    top: 65px !important;
+    right: 8px !important;
+    border-radius: 0;
+}
+#menu- > div > ul{
+    border: solid 0.1px #ff8f80b6;
+    background: #424242;
+    color: #fff;
+}
+#menu- > div > ul > li{
+    font-family: 'Montserrat',sans-serif;
+}
+#menu- > div > ul > li.Mui-selected{
+    background-color: #ff8f8014;
+}
+/* Table */
+.repositories > .tableRepo{
+    margin: 10px 0 0;
+    min-height: 305px;
+    background: #424242;
+}
+.tableRepo::-webkit-scrollbar {
+    width: 5px;
+    background: #424242;              
+}
+.tableRepo::-webkit-scrollbar-thumb {
+    background-color: #ff8f80;       
+  }
+.btn-link{
+    background:#FF8F80 ;
+    border:solid 2px #FF8F80 ;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #424242;
+    border-radius: 5px;
+    margin-right: -10px;
+    transition: all .2s;
+}
+.btn-link.btn-link:hover{
+    color: #FF8F80;
+    background: transparent;
+}
+/* Bullet */
+.bullet{
+    margin: auto;
+    text-align: center;
+    background:#f89406e6;
+    border-radius: 20px;
+    color: #fff;
+    padding: 5px 15px;
+}
+.yes{
+    background: #3fc380e6;
+}
+
+@media (max-width: 600px)
+{
+    .github {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile{
+        width: 100%;
+        padding: 0;
+    }
+    .repositories > .filter{
+        flex-direction: column;
+        align-items: center;
+    }
+    .repositories > .tableRepo{
+        max-width: 370px;
+        width: 100%;
+    }
+    .filter > .FilterInputs > .formSelect{
+        width: 150px;
+    }
+    .formBusca {
+        max-width: 200px;
+    }
+    .repositories > .filter > h2 {
+        margin: 20px 0 0;
+    }
+}
